@@ -1,0 +1,26 @@
+﻿@model LibraryManagement.Models.BorrowHistory
+@{
+    ViewBag.Title = "Return a book";
+}
+<h2>Return a Book</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) @Html.HiddenFor(model => model.BorrowHistoryId) @Html.HiddenFor(model => model.BookId) @Html.HiddenFor(model => model.BorrowDate) @Html.HiddenFor(model => model.ReturnDate) @Html.HiddenFor(model => model.CustomerId)
+    <div class="form-group">
+        <div class="col-md-10">@string.Format("You are about to return {0} which was borrowed by {1} at {2}.", Model.Book.Title, Model.Customer.Name, Model.BorrowDate.ToLongDateString())</div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Return" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+}
+<div>@Html.ActionLink("Back to Book List", "Index", "Books")</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

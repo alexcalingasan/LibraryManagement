@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LibraryManagement.Models.BookViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Books</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.BookId })                    
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @if (item.IsAvailable)
+                {
+                    @Html.ActionLink("Borrow", "Create", "BorrowHistories", new { id = item.BookId }, new { @class = "btn btn-primary" })
+                }
+                else
+                {
+                    @Html.ActionLink("Return", "Edit", "BorrowHistories", new { id = item.BookId }, new { @class = "btn btn-success" })
+                }
+            </td>
+        </tr>
+    }
+</table>
